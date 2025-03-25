@@ -1,30 +1,34 @@
 import { Tabs } from 'expo-router';
+import Feather from '@expo/vector-icons/Feather';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function TabsLayout() {
   return (
-    <Tabs>
+    <Tabs screenOptions={{ tabBarShowLabel: false }}>
       <Tabs.Screen
         name="home"
         options={{
-          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => <Feather name="home" size={24} color="black" />,
         }}
       />
       <Tabs.Screen
-        name="messaging"
+        name="explore"
         options={{
-          tabBarLabel: 'Messages',
+          tabBarIcon: ({ color }) => <Feather name="search" size={24} color="black" />,
         }}
       />
       <Tabs.Screen
         name="matching"
         options={{
-          tabBarLabel: 'Matching',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="cards-outline" size={24} color="black" />
+          ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color }) => <Feather name="user" size={24} color="black" />,
         }}
       />
     </Tabs>

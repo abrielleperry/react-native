@@ -1,37 +1,211 @@
-import { Avatar, AvatarFallbackText, AvatarImage } from '@/components/ui/avatar';
-import { Box } from '@/components/ui/box';
-import { Card } from '@/components/ui/card';
-import { Heading } from '@/components/ui/heading';
-import { Text } from '@/components/ui/text';
-import { VStack } from '@/components/ui/vstack';
+import React, { useState } from 'react';
+import Feather from '@expo/vector-icons/Feather';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  ImageSourcePropType,
+  Dimensions,
+} from 'react-native';
 
-export default function PostCard() {
-  return (
-    <Card className="m-3 max-w-[360px] rounded-lg p-5">
-      <Box className="flex-row">
-        <Avatar className="mr-3">
-          <AvatarFallbackText>RR</AvatarFallbackText>
-          <AvatarImage
-            source={{
-              uri: 'https://gluestack.github.io/public-blog-video-assets/john.png',
-            }}
-            alt="image"
-          />
-        </Avatar>
-        <VStack>
-          <Heading size="lg" className="mb-1">
-            Fishing
-          </Heading>
-          <Text size="sm">John Smith</Text>
-        </VStack>
-      </Box>
-      <VStack className="mb-6">
-        <Heading size="md" className="my-2">
-          I want to catch a bass!
-        </Heading>
-        <Text size="sm">Has anyone ever caught a bass?</Text>
-      </VStack>
-        <Text className="mb-2 text-sm font-normal text-right text-typography-700">May 15, 2023</Text>
-    </Card>
-  );
+interface SocialMediaCardProps {
+  interest: string;
+  username: string;
+  userAvatar: ImageSourcePropType;
+  timePosted: string;
+  postText?: string;
+  postImage?: ImageSourcePropType;
+  likesCount: number;
+  commentsCount: number;
+  onLikePress?: () => void;
+  onCommentPress?: () => void;
+  onProfilePress?: () => void;
 }
+
+const SocialMediaCard: React.FC<SocialMediaCardProps> = ({
+  interest,
+  username,
+  userAvatar,
+  timePosted,
+  postText,
+  postImage,
+  likesCount: initialLikesCount,
+  commentsCount,
+  onLikePress,
+  onCommentPress,
+  onProfilePress,
+}) => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(initialLikesCount);
+
+  const handleLikePress = () => {
+    setIsLiked(!isLiked);
+    setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
+    if (onLikePress) onLikePress();
+  };
+
+  return (
+    <View style={styles.card}>
+      {/* Header with user info */}
+      <View style={styles.cardHeader}>
+        <TouchableOpacity onPress={onProfilePress} style={styles.userInfo}>
+          <Image source={userAvatar} style={styles.avatar} />
+          <View>
+            <Text style={styles.interest}>{interest}</Text>
+            <Text style={styles.username}>{username}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      {/* Post image */}
+      {postImage && <Image source={postImage} style={styles.postImage} resizeMode="cover" />}
+
+      {/* Post content */}
+      {postText && <Text style={styles.postText}>{postText}</Text>}
+
+      {/* Engagement stats */}
+      <View style={styles.engagementStats}>
+        <Text style={styles.likesText}>{likesCount} likes</Text>
+        <Text style={styles.commentsText}>{commentsCount} comments</Text>
+      </View>
+
+      {/* Action buttons */}
+      <View style={styles.divider} />
+      <View style={styles.actionButtons}>
+        <TouchableOpacity style={styles.actionButton} onPress={handleLikePress}>
+          <Feather
+            name="heart"
+            width={20}
+            height={20}
+            color={isLiked ? '#ed4956' : '#262626'}
+            fill={isLiked ? '#ed4956' : 'none'}
+            stroke={isLiked ? '#ed4956' : '#262626'}
+            style={styles.actionIcon}
+          />
+          <Text style={[styles.actionText, isLiked && styles.likedText]}>Like</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.actionButton} onPress={onCommentPress}>
+          <Feather
+            name="message-circle"
+            width={20}
+            height={20}
+            color="#262626"
+            style={styles.actionIcon}
+          />
+          <Text style={styles.actionText}>Comment</Text>
+        </TouchableOpacity>
+        <Text style={styles.timePosted}>{timePosted}</Text>
+      </View>
+    </View>
+  );
+};
+
+const { width } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: 'white',
+    borderRadius: 8,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    overflow: 'hidden',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+      },
+      android: {
+        elevation: 3,
+      },
+    }),
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 12,
+  },
+  userInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 10,
+  },
+  interest: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: '#262626',
+  },
+  username: {
+    fontSize: 14,
+    color: '#262626',
+  },
+  timePosted: {
+    fontSize: 12,
+    color: '#8e8e8e',
+    alignSelf: 'center',
+  },
+  postText: {
+    paddingHorizontal: 12,
+    paddingBottom: 12,
+    fontSize: 14,
+    color: '#262626',
+    lineHeight: 18,
+  },
+  postImage: {
+    width: '100%',
+    height: width,
+  },
+  engagementStats: {
+    flexDirection: 'row',
+    padding: 12,
+  },
+  likesText: {
+    fontSize: 14,
+    fontWeight: '500',
+    marginRight: 16,
+    color: '#262626',
+  },
+  commentsText: {
+    fontSize: 14,
+    color: '#262626',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#efefef',
+    marginHorizontal: 12,
+  },
+  actionButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+  actionButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 6,
+  },
+  actionIcon: {
+    marginRight: 4,
+  },
+  actionText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#262626',
+  },
+  likedText: {
+    color: '#ed4956',
+  },
+});
+
+export default SocialMediaCard;

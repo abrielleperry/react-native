@@ -7,15 +7,16 @@ import {
   StyleSheet,
   TouchableOpacity,
   Platform,
-  ImageSourcePropType,
+  type ImageSourcePropType,
   Dimensions,
 } from 'react-native';
 
-interface SocialMediaCardProps {
+interface PostCardProps {
   interest: string;
   username: string;
   userAvatar: ImageSourcePropType;
   timePosted: string;
+  title?: string;
   postText?: string;
   postImage?: ImageSourcePropType;
   likesCount: number;
@@ -25,12 +26,13 @@ interface SocialMediaCardProps {
   onProfilePress?: () => void;
 }
 
-const SocialMediaCard: React.FC<SocialMediaCardProps> = ({
+const PostCard: React.FC<PostCardProps> = ({
   interest,
   username,
   userAvatar,
   timePosted,
   postText,
+  title,
   postImage,
   likesCount: initialLikesCount,
   commentsCount,
@@ -47,9 +49,13 @@ const SocialMediaCard: React.FC<SocialMediaCardProps> = ({
     if (onLikePress) onLikePress();
   };
 
+  const handleCommentPress = () => {
+    if (onCommentPress) onCommentPress();
+  };
+
   return (
     <View style={styles.card}>
-      {/* Header with user info */}
+      {/* header with interest, user pic, user name */}
       <View style={styles.cardHeader}>
         <TouchableOpacity onPress={onProfilePress} style={styles.userInfo}>
           <Image source={userAvatar} style={styles.avatar} />
@@ -60,26 +66,25 @@ const SocialMediaCard: React.FC<SocialMediaCardProps> = ({
         </TouchableOpacity>
       </View>
 
-      {/* Post image */}
+      {/* image */}
       {postImage && <Image source={postImage} style={styles.postImage} resizeMode="cover" />}
-
-      {/* Post content */}
+      {/* title */}
+      {title && <Text style={styles.postTitle}>{title}</Text>}
+      {/* content */}
       {postText && <Text style={styles.postText}>{postText}</Text>}
 
-      {/* Engagement stats */}
+      {/* num of likes and comments */}
       <View style={styles.engagementStats}>
         <Text style={styles.likesText}>{likesCount} likes</Text>
         <Text style={styles.commentsText}>{commentsCount} comments</Text>
       </View>
 
-      {/* Action buttons */}
+      {/* <3, comment */}
       <View style={styles.divider} />
       <View style={styles.actionButtons}>
         <TouchableOpacity style={styles.actionButton} onPress={handleLikePress}>
           <Feather
             name="heart"
-            width={20}
-            height={20}
             color={isLiked ? '#ed4956' : '#262626'}
             fill={isLiked ? '#ed4956' : 'none'}
             stroke={isLiked ? '#ed4956' : '#262626'}
@@ -87,14 +92,8 @@ const SocialMediaCard: React.FC<SocialMediaCardProps> = ({
           />
           <Text style={[styles.actionText, isLiked && styles.likedText]}>Like</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.actionButton} onPress={onCommentPress}>
-          <Feather
-            name="message-circle"
-            width={20}
-            height={20}
-            color="#262626"
-            style={styles.actionIcon}
-          />
+        <TouchableOpacity style={styles.actionButton} onPress={handleCommentPress}>
+          <Feather name="message-circle" color="#262626" style={styles.actionIcon} />
           <Text style={styles.actionText}>Comment</Text>
         </TouchableOpacity>
         <Text style={styles.timePosted}>{timePosted}</Text>
@@ -161,9 +160,17 @@ const styles = StyleSheet.create({
     color: '#262626',
     lineHeight: 18,
   },
+  postTitle: {
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    fontSize: 15,
+    fontWeight: 600,
+    color: '#262626',
+  },
   postImage: {
     width: '100%',
     height: width,
+    marginBottom: 12,
   },
   engagementStats: {
     flexDirection: 'row',
@@ -208,4 +215,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SocialMediaCard;
+export default PostCard;

@@ -1,27 +1,21 @@
 import React from 'react';
-import { TextInput, StyleSheet } from 'react-native';
-import { SafeAreaView} from 'react-native-safe-area-context';
+import { TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function ExploreScreen() {
   const [text, onChangeText] = React.useState('');
   return (
-    <SafeAreaView style={styles.container}>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-        placeholder="Search posts..."
-      />
+    <SafeAreaView className="flex-1  ">
+      <View className="mx-4 h-12 flex-row items-center rounded-full border-2 border-black">
+        <Feather name="search" size={24} color="black" className="ml-2" />
+        <TextInput
+          placeholder="Search posts..."
+          value={text}
+          onChangeText={onChangeText}
+          className="ml-2 flex-1 text-black"
+        />
+      </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 10 },
-  input: {
-    height: 40,
-    marginBottom: 12,
-    borderWidth: 1,
-    paddingHorizontal: 10,
-  },
-});

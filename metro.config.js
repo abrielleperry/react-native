@@ -9,4 +9,4 @@ const config = getDefaultConfig(__dirname);
 
 config.transformer.unstable_allowRequireContext = true;
 
-module.exports = withNativeWind(config, { input: "./global.css" });
+module.exports = withNativeWind(config, { input: './global.css' });

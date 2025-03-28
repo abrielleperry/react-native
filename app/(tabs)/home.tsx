@@ -59,7 +59,6 @@ const HomeScreen = () => {
 
   const handleAddComment = (text: string) => {
     console.log('New comment:', text);
-    // Here you would typically update your data source with the new comment
   };
 
   const avatars2 = [
@@ -192,7 +191,6 @@ const HomeScreen = () => {
           estimatedItemSize={300}
         />
 
-        {/* Keep the CommentsBottomSheet at the root level */}
         <CommentsBottomSheet
           ref={commentsSheetRef}
           comments={selectedComments}

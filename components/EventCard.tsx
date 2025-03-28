@@ -11,7 +11,6 @@ import {
 import Feather from '@expo/vector-icons/Feather';
 import AvatarGroup from './AvatarGroup';
 
-// event card comp
 interface EventCardProps {
   title: string;
   date: string;
@@ -61,9 +60,7 @@ const EventCard: React.FC<EventCardProps> = ({
     setIsLiked(!isLiked);
   };
 
-  const handleCommentPress = () => {
-    // Handle comment action
-  };
+  const handleCommentPress = () => {};
 
   const getStatusColor = () => {
     switch (status) {
@@ -143,7 +140,7 @@ const EventCard: React.FC<EventCardProps> = ({
           {status === 'upcoming' && (
             <View
               style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 16 }}>
-              {/* Going */}
+              {/* GOING */}
               <TouchableOpacity
                 style={[
                   styles.iconButton,
@@ -153,7 +150,7 @@ const EventCard: React.FC<EventCardProps> = ({
                 <Feather name="check" size={20} color={isGoing ? '#fff' : '#10b981'} />
               </TouchableOpacity>
 
-              {/* Not Going */}
+              {/* NOT GOING */}
               <TouchableOpacity
                 style={[
                   styles.iconButton,
@@ -165,13 +162,13 @@ const EventCard: React.FC<EventCardProps> = ({
             </View>
           )}
 
-          {/* num of likes and comments */}
+          {/* NUM OF LIKES AND COMMENTS */}
           <View style={styles.engagementStats}>
             <Text style={styles.likesText}>{likesCount} likes</Text>
             <Text style={styles.commentsText}>{commentsCount} comments</Text>
           </View>
 
-          {/* <3, comment */}
+          {/* HEART AND COMMENT ICON */}
           <View style={styles.divider} />
           <View style={styles.actionButtons}>
             <TouchableOpacity style={styles.actionButton} onPress={handleLikePress}>
@@ -262,7 +259,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 16,
   },
-  // Icon Buttons (RSVP)
+  // Icon Buttons (GOING & NOT GOING)
   iconButton: {
     width: 48,
     height: 48,
@@ -287,7 +284,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f87171',
     borderColor: '#f87171',
   },
-  // Attendees Section
+  // ATTENDEES SELECTION
   attendeesSection: {
     marginBottom: 6,
   },
@@ -296,7 +293,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 8,
   },
-  // Engagement Stats
+  // ENGAGMENT STATS
   engagementStats: {
     flexDirection: 'row',
     marginTop: 12,
@@ -311,7 +308,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
   },
-  // Action Buttons
+  // ACTION BUTTONS (GOING OR NOT GOING)
   divider: {
     height: 1,
     backgroundColor: '#efefef',

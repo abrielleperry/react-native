@@ -12,8 +12,6 @@ export default function SignupScreen() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSignup = () => {
-    // Here you would typically handle the signup logic with your backend
-    // For now, we'll just navigate to the next screen
     router.replace('/customize-profile');
   };
 

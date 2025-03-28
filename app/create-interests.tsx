@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
-// Mock data for interests
+// TEMP MOCK DATA FOR INTERESTS
 const INTERESTS = [
   { id: '1', name: 'Photography' },
   { id: '2', name: 'Travel' },

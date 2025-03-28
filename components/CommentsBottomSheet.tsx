@@ -82,7 +82,7 @@ const CommentsBottomSheet = forwardRef<CommentsBottomSheetRef, CommentsBottomShe
         </View>
 
         <BottomSheetScrollView contentContainerStyle={styles.commentsScrollViewContent}>
-          {/* comments list */}
+          {/* COMMENTS LIST */}
           {comments.length > 0 ? (
             comments.map((comment) => (
               <View key={comment.id} style={styles.commentContainer}>
@@ -101,7 +101,7 @@ const CommentsBottomSheet = forwardRef<CommentsBottomSheetRef, CommentsBottomShe
           )}
         </BottomSheetScrollView>
 
-        {/* form to add comment */}
+        {/* FORM TO ADD COMMENT */}
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.commentForm}

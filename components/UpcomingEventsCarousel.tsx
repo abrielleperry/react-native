@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-// defs of event types
 interface Event {
   id: string;
   title: string;
@@ -19,7 +18,7 @@ interface Event {
   imageUrl: string;
 }
 
-// mock data for now
+// TEMP MOCK DATA FOR EVENTS
 const upcomingEvents: Event[] = [
   {
     id: '1',
@@ -63,7 +62,7 @@ const upcomingEvents: Event[] = [
   },
 ];
 
-// event card on carousel
+// EVENT CARD FOR CAROUSEL
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   return (
     <TouchableOpacity style={styles.card}>
@@ -83,7 +82,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   );
 };
 
-// main carousel comp
+// MAIN CAROUSEL COMP
 interface EventCarouselProps {
   title?: string;
   events?: Event[];

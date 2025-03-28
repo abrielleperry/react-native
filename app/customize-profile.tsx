@@ -14,7 +14,6 @@ export default function CustomizeProfile() {
   const [bio, setBio] = useState('');
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,

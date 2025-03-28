@@ -20,7 +20,6 @@ import {
   Alert,
 } from 'react-native';
 
-// Define types
 type PostType = 'post' | 'event';
 
 interface FormData {
@@ -34,7 +33,7 @@ interface FormData {
   image?: string | null;
 }
 
-// mock data for now
+// TEMP MOCK DATA FOR INTERESTS
 const interestGroups = [
   'Technology',
   'Sports',
@@ -49,14 +48,13 @@ const interestGroups = [
 ];
 
 const AddPostForm = () => {
-  // state for form type either post or event post
   const [postType, setPostType] = useState<PostType>('post');
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showInterestPicker, setShowInterestPicker] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // form
+  // FORM
   const {
     control,
     handleSubmit,
@@ -77,15 +75,13 @@ const AddPostForm = () => {
     },
   });
 
-  // watch vals for display
   const selectedDate = watch('date');
   const selectedTime = watch('time');
   const selectedInterestGroup = watch('interestGroup');
   const imageUri = watch('image');
 
-  // image picker
+  // IMAGE PICKER
   const pickImage = async () => {
-    // req permissions for media library
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (status !== 'granted') {
@@ -93,7 +89,6 @@ const AddPostForm = () => {
       return;
     }
 
-    // launch image picker
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -106,15 +101,15 @@ const AddPostForm = () => {
     }
   };
 
-  // form submission
+  // FORM SUBMISSION
   const onSubmit = (data: FormData) => {
     setIsSubmitting(true);
 
-    // sim api call
+    // SIM API CAL
     setTimeout(() => {
       console.log('Form submitted:', data);
 
-      // reset after submit
+      // RESET AFTER SUBMISSION
       reset();
       setPostType('post');
       setIsSubmitting(false);
@@ -131,7 +126,7 @@ const AddPostForm = () => {
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Create New {postType === 'post' ? 'Post' : 'Event'}</Text>
 
-          {/* post type selection */}
+          {/* POST TYPE (POST, EVENT, STILL NEED TO ADD CLASS ) */}
           <View style={styles.formGroup}>
             <Text style={styles.label}>What are you creating?</Text>
             <View style={styles.radioGroup}>
@@ -159,7 +154,7 @@ const AddPostForm = () => {
             </View>
           </View>
 
-          {/* title input */}
+          {/* TITLE INPUT */}
           <View style={styles.formGroup}>
             <Text style={styles.label}>Title</Text>
             <Controller
@@ -179,7 +174,7 @@ const AddPostForm = () => {
             {errors.title && <Text style={styles.errorText}>{errors.title.message}</Text>}
           </View>
 
-          {/* description input */}
+          {/* DESCRIPTION INPUT */}
           <View style={styles.formGroup}>
             <Text style={styles.label}>Description</Text>
             <Controller
@@ -203,10 +198,10 @@ const AddPostForm = () => {
             )}
           </View>
 
-          {/* event fields */}
+          {/* EVENT FIELDS */}
           {postType === 'event' && (
             <>
-              {/* location input */}
+              {/* LOCATION INPUT */}
               <View style={styles.formGroup}>
                 <Text style={styles.label}>
                   <Ionicons name="location-outline" size={16} /> Location
@@ -228,7 +223,7 @@ const AddPostForm = () => {
                 {errors.location && <Text style={styles.errorText}>{errors.location.message}</Text>}
               </View>
 
-              {/* date picker */}
+              {/* DATE PICKER */}
               <View style={styles.formGroup}>
                 <Text style={styles.label}>
                   <Ionicons name="calendar-outline" size={16} /> Date
@@ -256,7 +251,7 @@ const AddPostForm = () => {
                 {errors.date && <Text style={styles.errorText}>{errors.date.message}</Text>}
               </View>
 
-              {/* time picker */}
+              {/* TIME PICKER */}
               <View style={styles.formGroup}>
                 <Text style={styles.label}>
                   <Ionicons name="time-outline" size={16} /> Time
@@ -286,7 +281,7 @@ const AddPostForm = () => {
             </>
           )}
 
-          {/* interst selector */}
+          {/* INTEREST SELECTOR */}
           <View style={styles.formGroup}>
             <Text style={styles.label}>Interest Group</Text>
             <TouchableOpacity
@@ -328,7 +323,7 @@ const AddPostForm = () => {
             )}
           </View>
 
-          {/* image picker */}
+          {/* IMAGE PICKER */}
           <View style={styles.formGroup}>
             <Text style={styles.label}>
               <Ionicons name="image-outline" size={16} /> Add Photo (Optional)
@@ -350,7 +345,7 @@ const AddPostForm = () => {
             )}
           </View>
 
-          {/* form actions */}
+          {/* FORM ACTIONS */}
           <View style={styles.formActions}>
             <TouchableOpacity
               style={styles.cancelButton}

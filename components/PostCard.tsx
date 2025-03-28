@@ -55,7 +55,7 @@ const PostCard: React.FC<PostCardProps> = ({
 
   return (
     <View style={styles.card}>
-      {/* header with interest, user pic, user name */}
+      {/* HEADER WITH INTEREST, PROFILE PIC AND USERNAME */}
       <View style={styles.cardHeader}>
         <TouchableOpacity onPress={onProfilePress} style={styles.userInfo}>
           <Image source={userAvatar} style={styles.avatar} />
@@ -66,20 +66,20 @@ const PostCard: React.FC<PostCardProps> = ({
         </TouchableOpacity>
       </View>
 
-      {/* image */}
+      {/* IMAGE */}
       {postImage && <Image source={postImage} style={styles.postImage} resizeMode="cover" />}
-      {/* title */}
+      {/* TITLE */}
       {title && <Text style={styles.postTitle}>{title}</Text>}
-      {/* content */}
+      {/* DESCRIPTION */}
       {postText && <Text style={styles.postText}>{postText}</Text>}
 
-      {/* num of likes and comments */}
+      {/* NUM OF LIKES AND COMMENTS */}
       <View style={styles.engagementStats}>
         <Text style={styles.likesText}>{likesCount} likes</Text>
         <Text style={styles.commentsText}>{commentsCount} comments</Text>
       </View>
 
-      {/* <3, comment */}
+      {/* LIKE AND COMMENT */}
       <View style={styles.divider} />
       <View style={styles.actionButtons}>
         <TouchableOpacity style={styles.actionButton} onPress={handleLikePress}>
